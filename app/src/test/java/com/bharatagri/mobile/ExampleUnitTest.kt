@@ -1,4 +1,4 @@
-package com.bharatagri.assignment
+package com.bharatagri.mobile
 
 import org.junit.Test
 

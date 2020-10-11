@@ -1,4 +1,4 @@
-package com.bharatagri.assignment
+package com.bharatagri.mobile
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
