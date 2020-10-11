@@ -23,6 +23,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", '"https://api.themoviedb.org/3/"'
+        }
+        debug{
+            debuggable = true
+            buildConfigField "String", "BASE_URL", '"https://api.themoviedb.org/3/"'
         }
     }
 
@@ -46,6 +51,17 @@ dependencies {
     // hilt library for dependency injection
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    // retrofit networking library
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+
+    // coroutine library
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
+
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
