@@ -1,12 +1,24 @@
 package com.bharatagri.mobile.assignment
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bharatagri.mobile.R
+import com.bharatagri.mobile.base.BaseActivity
 
-class AssignmentActivity : AppCompatActivity() {
+class AssignmentActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_assignment)
+        setPageTitle()
+        openFragment()
+    }
+
+    override fun getLayoutResourceId() = R.layout.activity_assignment
+
+    override fun setPageTitle() {
+        supportActionBar?.title = getString(R.string.title_movies)
+    }
+
+    private fun openFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragContainerView, AssignmentFragment())
     }
 }

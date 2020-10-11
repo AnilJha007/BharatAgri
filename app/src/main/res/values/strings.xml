@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BharatAgri</string>
+    <string name="title_movies">Now Playing Movies</string>
 </resources>
