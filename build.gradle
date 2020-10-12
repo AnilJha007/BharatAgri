@@ -19,6 +19,7 @@ buildscript {
         sdp_version = "1.0.6"
         glide_version = "4.11.0"
         spot_dialog_version = "1.1@aar"
+        nav_version = "2.3.0"
     }
     repositories {
         google()
