@@ -12,7 +12,9 @@ import com.bharatagri.mobile.utils.hide
 import com.bharatagri.mobile.utils.setImage
 import kotlinx.android.synthetic.main.item_movie_list.view.*
 
-class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
+class MoviesAdapter(
+    private val movieItemClickListener: (Long) -> Unit
+) : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     private val movieList = ArrayList<Movie>()
 
@@ -28,7 +30,7 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     override fun getItemCount() = movieList.size
 
-    class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(movie: Movie) {
             with(itemView) {
                 movie.apply {
@@ -37,6 +39,9 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
                     getDateFromString(releaseDate)?.let {
                         tvReleaseDate.text = getDateString(it)
                     } ?: tvReleaseDate.hide()
+                }
+                setOnClickListener {
+                    movieItemClickListener(movie.id)
                 }
             }
         }

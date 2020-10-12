@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintMovieDetails"
+    style="@style/MatchParentStyle"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutDetails"
+        style="@style/MatchParentStyle"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLine"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.30" />
+
+        <ImageView
+            android:id="@+id/ivBackdrop"
+            style="@style/ZeroDpStyle"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="@id/guideLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <ProgressBar
+            android:id="@+id/progressScore"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginEnd="@dimen/_7sdp"
+            android:indeterminateOnly="false"
+            android:progressDrawable="@drawable/circle_progress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvName"
+            app:layout_constraintTop_toBottomOf="@+id/ivBackdrop" />
+
+        <TextView
+            android:id="@+id/tvProgress"
+            style="@style/WrapContentStyle"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_13sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/progressScore"
+            app:layout_constraintEnd_toEndOf="@+id/progressScore"
+            app:layout_constraintStart_toStartOf="@+id/progressScore"
+            app:layout_constraintTop_toTopOf="@+id/progressScore"
+            tools:text="65%" />
+
+        <TextView
+            android:id="@+id/tvScore"
+            style="@style/WrapContentStyle"
+            android:layout_margin="@dimen/_5sdp"
+            android:gravity="center"
+            android:text="@string/score_user"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_13sdp"
+            app:layout_constraintEnd_toEndOf="@+id/progressScore"
+            app:layout_constraintStart_toStartOf="@+id/progressScore"
+            app:layout_constraintTop_toBottomOf="@+id/progressScore" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_7sdp"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_16sdp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/progressScore"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideLine"
+            tools:text="Movie Name" />
+
+        <TextView
+            android:id="@+id/tvGenres"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_7sdp"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_13sdp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/progressScore"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvName"
+            tools:text="Genres Genres" />
+
+        <TextView
+            android:id="@+id/tvDuration"
+            style="@style/WrapContentStyle"
+            android:layout_margin="@dimen/_7sdp"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_13sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvGenres"
+            tools:text="Duration: 90 Mins" />
+
+        <TextView
+            android:id="@+id/tvReleaseDate"
+            style="@style/WrapContentStyle"
+            android:layout_margin="@dimen/_7sdp"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_13sdp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDuration"
+            tools:text="Release Date: 2020-21-12" />
+
+        <TextView
+            android:id="@+id/tvLanguage"
+            style="@style/WrapContentStyle"
+            android:layout_margin="@dimen/_7sdp"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_13sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvReleaseDate"
+            tools:text="Language: English" />
+
+        <TextView
+            android:id="@+id/tvRevenue"
+            style="@style/WrapContentStyle"
+            android:layout_margin="@dimen/_7sdp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_13sdp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvLanguage"
+            tools:text="Revenue: $32234" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            style="@style/WrapContentStyle"
+            android:layout_margin="@dimen/_7sdp"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_13sdp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvRevenue"
+            tools:text="Status: Released" />
+
+        <TextView
+            android:id="@+id/tvOverview"
+            style="@style/WrapContentStyle"
+            android:layout_margin="@dimen/_7sdp"
+            android:text="@string/overview"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_13sdp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvStatus" />
+
+        <TextView
+            android:id="@+id/tvOverviewValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:text="@string/overview"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_13sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvOverview"
+            tools:text="Kit can’t remember much of his native Vietnam. When he returns to the Land of the Golden Star for the first time in over thirty years, he takes in his local surroundings as any Western tourist would, and the environment is as exotic as the language is incomprehensible." />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

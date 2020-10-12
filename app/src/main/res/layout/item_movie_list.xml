@@ -15,8 +15,8 @@
         <ImageView
             android:id="@+id/ivPoster"
             android:layout_width="0dp"
-            android:scaleType="fitXY"
             android:layout_height="@dimen/_165sdp"
+            android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -29,6 +29,7 @@
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_5sdp"
+            android:maxLines="2"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_14sdp"
             android:textStyle="bold"

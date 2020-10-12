@@ -4,9 +4,11 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bharatagri.mobile.R
 import com.bharatagri.mobile.base.BaseFragment
+import com.bharatagri.mobile.movie.MovieDetailsFragment.Companion.MOVIE_ID
 import com.bharatagri.mobile.service.modal.MoviesResponse
 import com.bharatagri.mobile.service.utility.ApiStatus
 import com.bharatagri.mobile.utils.Util.getAlertDialog
@@ -35,12 +37,18 @@ class MoviesFragment : BaseFragment() {
 
     private fun setInitStateData() {
         spotsDialog = getAlertDialog(requireContext())
-        moviesAdapter = MoviesAdapter()
+        moviesAdapter = MoviesAdapter(::handleItemClick)
         rvMovies.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
             setHasFixedSize(false)
             adapter = moviesAdapter
         }
+    }
+
+    private fun handleItemClick(movieId: Long) {
+        findNavController().navigate(R.id.movieDetailsDest, Bundle().apply {
+            putLong(MOVIE_ID, movieId)
+        })
     }
 
     private fun initViewModel() {

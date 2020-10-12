@@ -1,13 +1,15 @@
 package com.bharatagri.mobile.service.modal
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 data class MovieDetailsResponse(
     val adult: Boolean,
     @SerializedName("backdrop_path")
     val backdropPath: String,
     @SerializedName("belongs_to_collection")
-    val belongsToCollection: String,
+    val belongsToCollection: BelongsToCollection?,
     val budget: Int,
     val genres: List<Genres>,
     val homepage: String,
@@ -28,7 +30,7 @@ data class MovieDetailsResponse(
     val productionCountries: List<ProductionCountries>,
     @SerializedName("release_date")
     val releaseDate: String,
-    val revenue: Int,
+    val revenue: Long,
     val runtime: Int,
     @SerializedName("spoken_languages")
     val spokenLanguages: List<SpokenLanguages>,
@@ -42,6 +44,16 @@ data class MovieDetailsResponse(
     @SerializedName("vote_count")
     val voteCount: Int
 )
+
+@Parcelize
+data class BelongsToCollection(
+    val id: Int,
+    val name: String,
+    @SerializedName("poster_path")
+    val posterPath: String,
+    @SerializedName("backdrop_path")
+    val backdropPath: String
+) : Parcelable
 
 data class ProductionCompanies(
     @SerializedName("id")
