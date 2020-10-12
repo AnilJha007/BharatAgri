@@ -24,10 +24,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BASE_URL", '"https://api.themoviedb.org/3/"'
+            buildConfigField "String", "API_KEY", '"cc1da824e1a6a1989fc629473b45f7fa"'
         }
         debug{
             debuggable = true
             buildConfigField "String", "BASE_URL", '"https://api.themoviedb.org/3/"'
+            buildConfigField "String", "API_KEY", '"cc1da824e1a6a1989fc629473b45f7fa"'
         }
     }
 
@@ -62,6 +64,9 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
 
+    // hilt lifecycle library
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_lifecycle_version"
+    kapt "androidx.hilt:hilt-compiler:$hilt_lifecycle_version"
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

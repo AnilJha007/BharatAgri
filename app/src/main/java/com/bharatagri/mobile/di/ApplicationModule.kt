@@ -1,6 +1,8 @@
 package com.bharatagri.mobile.di
 
 import com.bharatagri.mobile.BuildConfig
+import com.bharatagri.mobile.service.api.ApiHelper
+import com.bharatagri.mobile.service.api.ApiHelperImpl
 import com.bharatagri.mobile.service.api.ApiService
 import dagger.Module
 import dagger.Provides
@@ -31,7 +33,6 @@ class ApplicationModule {
         .Builder()
         .build()
 
-
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient, baseUrl: String): Retrofit =
@@ -41,9 +42,11 @@ class ApplicationModule {
             .client(okHttpClient)
             .build()
 
-
     @Provides
     @Singleton
     fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
 
+    @Provides
+    @Singleton
+    fun provideApiHelper(apiHelperImpl: ApiHelperImpl): ApiHelper = apiHelperImpl
 }
