@@ -8,10 +8,8 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutResourceId())
-        setPageTitle()
     }
 
-    abstract fun setPageTitle()
-
+    /* override this method in fragment to attach the layout*/
     abstract fun getLayoutResourceId(): Int
 }

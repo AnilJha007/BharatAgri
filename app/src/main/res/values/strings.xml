@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">BharatAgri</string>
     <string name="title_movies">Now Playing Movies</string>
+    <string name="no_internet_error">"No internet connection. Please connect and try again."</string>
+    <string name="something_went_wrong">"Something wrong. Please try again later."</string>
 </resources>

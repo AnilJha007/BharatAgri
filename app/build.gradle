@@ -49,6 +49,7 @@ dependencies {
     implementation "androidx.core:core-ktx:$ktx_version"
     implementation "androidx.appcompat:appcompat:$appcompat_versoin"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
+    implementation "com.google.android.material:material:$material_version"
 
     // hilt library for dependency injection
     implementation "com.google.dagger:hilt-android:$hilt_version"
@@ -67,6 +68,24 @@ dependencies {
     // hilt lifecycle library
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_lifecycle_version"
     kapt "androidx.hilt:hilt-compiler:$hilt_lifecycle_version"
+
+    // lifecycle ktx library
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_ktx_version"
+
+    // fragment ktx library
+    implementation "androidx.fragment:fragment-ktx:$fragment_ktx_version"
+
+    // lifecycle library
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+
+    // gson library
+    implementation "com.google.code.gson:gson:$gson_version"
+
+    // sdp sizing library
+    implementation "com.intuit.sdp:sdp-android:$sdp_version"
+
+    // glide image library
+    implementation "com.github.bumptech.glide:glide:$glide_version"
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
