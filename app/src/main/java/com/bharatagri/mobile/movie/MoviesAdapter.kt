@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bharatagri.mobile.R
 import com.bharatagri.mobile.service.modal.Movie
-import com.bharatagri.mobile.utils.getDateFromString
-import com.bharatagri.mobile.utils.getDateString
+import com.bharatagri.mobile.utils.Util.getDateFromString
+import com.bharatagri.mobile.utils.Util.getDateString
 import com.bharatagri.mobile.utils.hide
 import com.bharatagri.mobile.utils.setImage
 import kotlinx.android.synthetic.main.item_movie_list.view.*

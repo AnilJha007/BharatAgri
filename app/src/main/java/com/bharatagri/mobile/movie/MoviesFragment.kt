@@ -1,14 +1,16 @@
 package com.bharatagri.mobile.movie
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bharatagri.mobile.R
 import com.bharatagri.mobile.base.BaseFragment
 import com.bharatagri.mobile.service.modal.MoviesResponse
 import com.bharatagri.mobile.service.utility.ApiStatus
+import com.bharatagri.mobile.utils.Util.getAlertDialog
+import com.bharatagri.mobile.utils.snackBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_movies.*
 
@@ -17,6 +19,7 @@ class MoviesFragment : BaseFragment() {
 
     private val viewModel: MoviesViewModel by viewModels()
     private lateinit var moviesAdapter: MoviesAdapter
+    private lateinit var spotsDialog: AlertDialog
 
     override fun setPageTitle() {
         activity?.title = getString(R.string.title_movies)
@@ -26,11 +29,12 @@ class MoviesFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initAdapter()
+        setInitStateData()
         initViewModel()
     }
 
-    private fun initAdapter() {
+    private fun setInitStateData() {
+        spotsDialog = getAlertDialog(requireContext())
         moviesAdapter = MoviesAdapter()
         rvMovies.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
@@ -43,15 +47,21 @@ class MoviesFragment : BaseFragment() {
         viewModel.moviesMutableLiveData.observe(requireActivity(), { res ->
             when (res.status) {
                 ApiStatus.LOADING -> {
-                    Toast.makeText(requireContext(), "LOADING", Toast.LENGTH_SHORT).show()
+                    if (::spotsDialog.isInitialized)
+                        spotsDialog.show()
                 }
                 ApiStatus.SUCCESS -> {
+                    if (::spotsDialog.isInitialized && spotsDialog.isShowing)
+                        spotsDialog.hide()
+
                     res.data?.let {
                         setData(it)
                     }
                 }
                 ApiStatus.ERROR -> {
-                    Toast.makeText(requireContext(), "ERROR", Toast.LENGTH_SHORT).show()
+                    if (::spotsDialog.isInitialized && spotsDialog.isShowing)
+                        spotsDialog.hide()
+                    constraintMovies?.snackBar(res.message!!)
                 }
             }
         })
