@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bharatagri.mobile.R
 import com.bharatagri.mobile.base.BaseFragment
 import com.bharatagri.mobile.movie.MovieDetailsFragment.Companion.MOVIE_ID
+import com.bharatagri.mobile.service.modal.Movie
 import com.bharatagri.mobile.service.modal.MoviesResponse
 import com.bharatagri.mobile.service.utility.ApiStatus
 import com.bharatagri.mobile.utils.Util.getAlertDialog
@@ -99,15 +100,9 @@ class MoviesFragment : BaseFragment() {
         })
     }
 
-    private fun setData(moviesResponse: MoviesResponse) {
-        with(moviesResponse) {
-            moviesViewModel.let {
-                it.nextPage = page + 1
-                it.totalPages = totalPages
-            }
-            moviesAdapter.updateData(results)
-        }
+    private fun setData(movies: MutableList<Movie>) {
+            moviesAdapter.updateData(movies)
     }
 
-    private fun callGetMoviesAPI() = moviesViewModel.apply { getMovies(nextPage) }
+    private fun callGetMoviesAPI() = moviesViewModel.apply { getMovies() }
 }

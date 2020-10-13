@@ -47,8 +47,11 @@ class MoviesAdapter(
         }
     }
 
-    fun updateData(movies: ArrayList<Movie>) {
-        movieList.addAll(movies)
+    fun updateData(movies: MutableList<Movie>) {
+        movieList.apply {
+            clear()
+            addAll(movies)
+        }
         notifyDataSetChanged()
     }
 }

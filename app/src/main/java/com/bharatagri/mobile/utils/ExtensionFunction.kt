@@ -13,7 +13,7 @@ fun View.snackBar(text: String, duration: Int = Snackbar.LENGTH_SHORT): Snackbar
     return Snackbar.make(this, text, duration).apply { show() }
 }
 
-fun ImageView.setImage(imageEndPoint: String, imageSize: String = IMAGE_SIZE_185) {
+fun ImageView.setImage(imageEndPoint: String?, imageSize: String = IMAGE_SIZE_185) {
     val imageUrl = IMAGE_BASE_PATH + imageSize + imageEndPoint
     Glide.with(this)
         .load(imageUrl)

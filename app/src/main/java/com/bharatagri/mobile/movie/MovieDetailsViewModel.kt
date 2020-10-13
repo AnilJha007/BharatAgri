@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bharatagri.mobile.R
 import com.bharatagri.mobile.service.modal.MovieDetailsResponse
-import com.bharatagri.mobile.service.repository.MainRepository
+import com.bharatagri.mobile.service.repository.RemoteRepository
 import com.bharatagri.mobile.service.utility.NetworkHelper
 import com.bharatagri.mobile.service.utility.Resource
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -18,7 +18,7 @@ import retrofit2.Response
 
 class MovieDetailsViewModel @ViewModelInject constructor(
     @ApplicationContext private val context: Context,
-    private val mainRepository: MainRepository,
+    private val remoteRepository: RemoteRepository,
     private val networkHelper: NetworkHelper
 ) : ViewModel() {
 
@@ -32,7 +32,7 @@ class MovieDetailsViewModel @ViewModelInject constructor(
             _movieDetailsMutableLiveData.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
                 try {
-                    setMovieDetailsData(mainRepository.getMovieDetails(movieId))
+                    setMovieDetailsData(remoteRepository.getMovieDetails(movieId))
                 } catch (e: Exception) {
                     _movieDetailsMutableLiveData.postValue(
                         Resource.error(context.getString(R.string.something_went_wrong), null)

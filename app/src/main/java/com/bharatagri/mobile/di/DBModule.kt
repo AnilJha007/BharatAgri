@@ -2,7 +2,7 @@ package com.bharatagri.mobile.di
 
 import android.content.Context
 import com.bharatagri.mobile.service.database.AppDatabase
-import com.bharatagri.mobile.service.database.MovieRepository
+import com.bharatagri.mobile.service.repository.LocalRepository
 import com.bharatagri.mobile.service.database.dao.MovieDao
 import dagger.Module
 import dagger.Provides
@@ -19,5 +19,5 @@ class DBModule {
         AppDatabase.getInstance(context).movieDao()
 
     @Provides
-    fun provideMovieRepository(movieDao: MovieDao) = MovieRepository(movieDao)
+    fun provideMovieRepository(movieDao: MovieDao) = LocalRepository(movieDao)
 }

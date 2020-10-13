@@ -1,10 +1,10 @@
-package com.bharatagri.mobile.service.database
+package com.bharatagri.mobile.service.repository
 
 import com.bharatagri.mobile.service.database.dao.MovieDao
 import com.bharatagri.mobile.service.modal.Movie
 import javax.inject.Inject
 
-class MovieRepository @Inject constructor(private val movieDao: MovieDao) {
+class LocalRepository @Inject constructor(private val movieDao: MovieDao) {
 
     suspend fun insertAllMovies(movies: MutableList<Movie>) =
         movieDao.insertAllMovies(movies)
