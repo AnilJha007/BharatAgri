@@ -32,15 +32,11 @@ class MoviesFragment : BaseFragment() {
 
     override fun getLayoutResourceId() = R.layout.fragment_movies
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initViewModel()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setInitStateData()
         initListener()
+        initViewModel()
     }
 
     private fun initListener() {
@@ -75,7 +71,7 @@ class MoviesFragment : BaseFragment() {
     }
 
     private fun initViewModel() {
-        moviesViewModel.moviesMutableLiveData.observe(requireActivity(), { res ->
+        moviesViewModel.moviesMutableLiveData.observe(viewLifecycleOwner, { res ->
             when (res.status) {
                 ApiStatus.LOADING -> {
                     if (::spotsDialog.isInitialized && !moviesViewModel.isFirstTimeLoad) {

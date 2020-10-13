@@ -7,10 +7,13 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.bharatagri.mobile.service.database.dao.MovieDao
 import com.bharatagri.mobile.service.modal.Movie
+import com.bharatagri.mobile.service.modal.MovieDetails
 import com.bharatagri.mobile.utils.GenresConverter
+import com.bharatagri.mobile.utils.IntConverter
+import com.bharatagri.mobile.utils.SpokenLanguageConverter
 
-@Database(entities = [Movie::class], version = 1, exportSchema = false)
-@TypeConverters(GenresConverter::class)
+@Database(entities = [Movie::class, MovieDetails::class], version = 1, exportSchema = false)
+@TypeConverters(IntConverter::class, GenresConverter::class, SpokenLanguageConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
     /**

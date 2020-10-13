@@ -3,11 +3,12 @@ package com.bharatagri.mobile.movie
 import android.content.Context
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bharatagri.mobile.R
-import com.bharatagri.mobile.service.modal.MovieDetailsResponse
+import com.bharatagri.mobile.service.modal.MovieDetails
+import com.bharatagri.mobile.service.repository.LocalRepository
 import com.bharatagri.mobile.service.repository.RemoteRepository
 import com.bharatagri.mobile.service.utility.NetworkHelper
 import com.bharatagri.mobile.service.utility.Resource
@@ -19,16 +20,17 @@ import retrofit2.Response
 class MovieDetailsViewModel @ViewModelInject constructor(
     @ApplicationContext private val context: Context,
     private val remoteRepository: RemoteRepository,
+    private val localRepository: LocalRepository,
     private val networkHelper: NetworkHelper
 ) : ViewModel() {
 
     // live data for movie details
-    private val _movieDetailsMutableLiveData = MutableLiveData<Resource<MovieDetailsResponse>>()
-    val movieDetailsMutableLiveData: LiveData<Resource<MovieDetailsResponse>>
+    private val _movieDetailsMutableLiveData = MediatorLiveData<Resource<MovieDetails>>()
+    val movieDetailsMutableLiveData: LiveData<Resource<MovieDetails>>
         get() = _movieDetailsMutableLiveData
 
     fun getMovieDetails(movieId: Long) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             _movieDetailsMutableLiveData.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
                 try {
@@ -43,12 +45,20 @@ class MovieDetailsViewModel @ViewModelInject constructor(
                     Resource.error(context.getString(R.string.no_internet_error), null)
                 )
             }
+            _movieDetailsMutableLiveData.addSource(localRepository.fetchMovieDetails(movieId)) { movie ->
+                _movieDetailsMutableLiveData.postValue(Resource.success(movie))
+            }
         }
     }
 
-    private fun setMovieDetailsData(response: Response<MovieDetailsResponse>) {
+    private fun setMovieDetailsData(response: Response<MovieDetails>) {
         if (response.isSuccessful) {
-            _movieDetailsMutableLiveData.postValue(Resource.success(response.body()))
+            // insert data into database
+            viewModelScope.launch {
+                response.body()?.let {
+                    localRepository.insertMovieDetails(it)
+                }
+            }
         } else {
             _movieDetailsMutableLiveData.postValue(
                 Resource.error(

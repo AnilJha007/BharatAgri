@@ -1,7 +1,7 @@
 package com.bharatagri.mobile.service.api
 
 import com.bharatagri.mobile.BuildConfig
-import com.bharatagri.mobile.service.modal.MovieDetailsResponse
+import com.bharatagri.mobile.service.modal.MovieDetails
 import com.bharatagri.mobile.service.modal.MoviesResponse
 import com.bharatagri.mobile.utils.Constants.LANGUAGE_CODE_US
 import retrofit2.Response
@@ -23,5 +23,5 @@ interface ApiService {
         @Path("movie_id") movieId: Long,
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
         @Query("language") language: String = LANGUAGE_CODE_US
-    ): Response<MovieDetailsResponse>
+    ): Response<MovieDetails>
 }

@@ -7,7 +7,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import com.bharatagri.mobile.R
 import com.bharatagri.mobile.base.BaseFragment
-import com.bharatagri.mobile.service.modal.MovieDetailsResponse
+import com.bharatagri.mobile.service.modal.MovieDetails
 import com.bharatagri.mobile.service.utility.ApiStatus
 import com.bharatagri.mobile.utils.Util.getAlertDialog
 import com.bharatagri.mobile.utils.Util.getDateFromString
@@ -40,6 +40,10 @@ class MovieDetailsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setInitStateData()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         initViewModel()
     }
 
@@ -49,7 +53,7 @@ class MovieDetailsFragment : BaseFragment() {
     }
 
     private fun initViewModel() {
-        movieDetailsViewModel.movieDetailsMutableLiveData.observe(requireActivity(), { res ->
+        movieDetailsViewModel.movieDetailsMutableLiveData.observe(viewLifecycleOwner, { res ->
             when (res.status) {
                 ApiStatus.LOADING -> {
                     if (::spotsDialog.isInitialized)
@@ -73,8 +77,8 @@ class MovieDetailsFragment : BaseFragment() {
         callGetMovieDetailsAPI()
     }
 
-    private fun setData(moviesResponse: MovieDetailsResponse) {
-        moviesResponse.apply {
+    private fun setData(movies: MovieDetails) {
+        movies.apply {
             layoutDetails.show()
             ivBackdrop.setImage(backdropPath)
 
