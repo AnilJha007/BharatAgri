@@ -13,5 +13,6 @@
     <string name="status">Status: %s</string>
     <string name="score_user">User\nScore</string>
     <string name="progress_percentage" formatted="false">%s%%</string>
+    <string name="sort">Sort</string>
 
 </resources>

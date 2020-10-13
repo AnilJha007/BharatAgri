@@ -3,6 +3,7 @@ package com.bharatagri.mobile.movie
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -11,7 +12,6 @@ import com.bharatagri.mobile.R
 import com.bharatagri.mobile.base.BaseFragment
 import com.bharatagri.mobile.movie.MovieDetailsFragment.Companion.MOVIE_ID
 import com.bharatagri.mobile.service.modal.Movie
-import com.bharatagri.mobile.service.modal.MoviesResponse
 import com.bharatagri.mobile.service.utility.ApiStatus
 import com.bharatagri.mobile.utils.Util.getAlertDialog
 import com.bharatagri.mobile.utils.snackBar
@@ -40,6 +40,10 @@ class MoviesFragment : BaseFragment() {
     }
 
     private fun initListener() {
+        fabFilter.setOnClickListener {
+            Toast.makeText(requireContext(), "Fab clicked!", Toast.LENGTH_SHORT).show()
+        }
+
         rvMovies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
@@ -97,7 +101,7 @@ class MoviesFragment : BaseFragment() {
     }
 
     private fun setData(movies: MutableList<Movie>) {
-            moviesAdapter.updateData(movies)
+        moviesAdapter.updateData(movies)
     }
 
     private fun callGetMoviesAPI() = moviesViewModel.apply { getMovies() }
