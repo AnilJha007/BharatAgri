@@ -1,6 +1,8 @@
 package com.bharatagri.mobile.service.modal
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -14,6 +16,7 @@ data class MoviesResponse(
     val totalPages: Int
 ) : Parcelable
 
+@Entity(tableName = "movie_list")
 @Parcelize
 data class Movie(
     val popularity: Double,
@@ -21,6 +24,7 @@ data class Movie(
     val video: Boolean,
     @SerializedName("poster_path")
     val posterPath: String,
+    @PrimaryKey
     val id: Long,
     val adult: Boolean,
     @SerializedName("backdrop_path")
