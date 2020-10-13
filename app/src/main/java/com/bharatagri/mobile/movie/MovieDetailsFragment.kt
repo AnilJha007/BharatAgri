@@ -18,7 +18,6 @@ import com.bharatagri.mobile.utils.show
 import com.bharatagri.mobile.utils.snackBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_movie_details.*
-import kotlinx.android.synthetic.main.fragment_movies.*
 import kotlin.math.roundToInt
 
 
@@ -29,13 +28,11 @@ class MovieDetailsFragment : BaseFragment() {
         const val MOVIE_ID = "movieId"
     }
 
-    private val viewModel: MoviesViewModel by viewModels()
+    private val movieDetailsViewModel: MovieDetailsViewModel by viewModels()
     private lateinit var spotsDialog: AlertDialog
 
     override fun setPageTitle() {
-        activity?.apply {
-            title = getString(R.string.title_movie_details)
-        }
+        activity?.title = getString(R.string.title_movie_details)
     }
 
     override fun getLayoutResourceId() = R.layout.fragment_movie_details
@@ -52,7 +49,7 @@ class MovieDetailsFragment : BaseFragment() {
     }
 
     private fun initViewModel() {
-        viewModel.movieDetailsMutableLiveData.observe(requireActivity(), { res ->
+        movieDetailsViewModel.movieDetailsMutableLiveData.observe(requireActivity(), { res ->
             when (res.status) {
                 ApiStatus.LOADING -> {
                     if (::spotsDialog.isInitialized)
@@ -69,7 +66,7 @@ class MovieDetailsFragment : BaseFragment() {
                 ApiStatus.ERROR -> {
                     if (::spotsDialog.isInitialized && spotsDialog.isShowing)
                         spotsDialog.hide()
-                    constraintMovies?.snackBar(res.message!!)
+                    constraintMovieDetails?.snackBar(res.message!!)
                 }
             }
         })
@@ -114,5 +111,5 @@ class MovieDetailsFragment : BaseFragment() {
     }
 
     private fun callGetMovieDetailsAPI() =
-        viewModel.getMovieDetails(requireArguments().getLong(MOVIE_ID))
+        movieDetailsViewModel.getMovieDetails(requireArguments().getLong(MOVIE_ID))
 }

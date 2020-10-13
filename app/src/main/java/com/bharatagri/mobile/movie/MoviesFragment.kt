@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_movies.*
 @AndroidEntryPoint
 class MoviesFragment : BaseFragment() {
 
-    private val viewModel: MoviesViewModel by viewModels()
+    private val moviesViewModel: MoviesViewModel by viewModels()
     private lateinit var moviesAdapter: MoviesAdapter
     private lateinit var spotsDialog: AlertDialog
 
@@ -52,11 +52,13 @@ class MoviesFragment : BaseFragment() {
     }
 
     private fun initViewModel() {
-        viewModel.moviesMutableLiveData.observe(requireActivity(), { res ->
+        moviesViewModel.moviesMutableLiveData.observe(requireActivity(), { res ->
             when (res.status) {
                 ApiStatus.LOADING -> {
-                    if (::spotsDialog.isInitialized)
+                    if (::spotsDialog.isInitialized && !moviesViewModel.isFirstTime) {
+                        moviesViewModel.isFirstTime = true // show loader for the first time only
                         spotsDialog.show()
+                    }
                 }
                 ApiStatus.SUCCESS -> {
                     if (::spotsDialog.isInitialized && spotsDialog.isShowing)
@@ -80,5 +82,5 @@ class MoviesFragment : BaseFragment() {
         moviesAdapter.updateData(moviesResponse.results)
     }
 
-    private fun callGetMoviesAPI(pageNumber: Int = 1) = viewModel.getMovies(pageNumber)
+    private fun callGetMoviesAPI(pageNumber: Int = 1) = moviesViewModel.getMovies(pageNumber)
 }
