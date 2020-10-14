@@ -22,6 +22,27 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
+        <ProgressBar
+            android:id="@+id/progressScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_7sdp"
+            android:indeterminateOnly="false"
+            android:progressDrawable="@drawable/circle_progress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvTitle" />
+
+        <TextView
+            android:id="@+id/tvProgress"
+            style="@style/WrapContentStyle"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_7sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/progressScore"
+            app:layout_constraintEnd_toEndOf="@+id/progressScore"
+            app:layout_constraintStart_toStartOf="@+id/progressScore"
+            app:layout_constraintTop_toTopOf="@+id/progressScore"
+            tools:text="65%" />
+
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
@@ -33,7 +54,7 @@
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/_14sdp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/progressScore"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivPoster"
             tools:text="Movie Title" />

@@ -11,6 +11,7 @@ import com.bharatagri.mobile.utils.Util.getDateString
 import com.bharatagri.mobile.utils.hide
 import com.bharatagri.mobile.utils.setImage
 import kotlinx.android.synthetic.main.item_movie_list.view.*
+import kotlin.math.roundToInt
 
 class MoviesAdapter(
     private val movieItemClickListener: (Long) -> Unit
@@ -39,6 +40,12 @@ class MoviesAdapter(
                     getDateFromString(releaseDate)?.let {
                         tvReleaseDate.text = getDateString(it)
                     } ?: tvReleaseDate.hide()
+                    progressScore.progress = (voteAverage * 10).roundToInt()
+                    tvProgress.text =
+                        context.getString(
+                            R.string.progress_percentage,
+                            (voteAverage * 10).roundToInt().toString()
+                        )
                 }
                 setOnClickListener {
                     movieItemClickListener(movie.id)

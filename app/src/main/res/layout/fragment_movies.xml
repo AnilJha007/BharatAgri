@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintMovies"
     style="@style/MatchParentStyle">
 
@@ -12,14 +13,69 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabFilter"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardSortItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_20sdp"
-        android:elevation="@dimen/_6sdp"
-        android:src="@drawable/filter"
-        app:backgroundTint="@color/colorPrimary"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:visibility="gone"
+        app:cardElevation="@dimen/_5sdp"
+        app:layout_constraintBottom_toTopOf="@+id/fabSort"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible">
+
+        <LinearLayout
+            style="@style/WrapContentStyle"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/_5sdp"
+            android:paddingEnd="@dimen/_5sdp">
+
+            <TextView
+                android:id="@+id/tvSortDate"
+                style="@style/SectionStyle"
+                android:drawablePadding="@dimen/_5sdp"
+                android:gravity="center"
+                android:padding="@dimen/_10sdp"
+                android:text="@string/date"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_13sdp"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/date" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/colorBlack" />
+
+            <TextView
+                android:id="@+id/tvSortRating"
+                style="@style/WrapContentStyle"
+                android:drawablePadding="@dimen/_5sdp"
+                android:gravity="center"
+                android:padding="@dimen/_10sdp"
+                android:text="@string/rating"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_13sdp"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/rating" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabSort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:elevation="@dimen/_10sdp"
+        android:src="@drawable/sort"
+        android:tag="@string/tag_fab_sort"
+        android:visibility="gone"
+        app:backgroundTint="@color/colorWhite"
+        app:fabCustomSize="@dimen/_50sdp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

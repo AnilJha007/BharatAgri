@@ -3,7 +3,6 @@ package com.bharatagri.mobile.movie
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -40,8 +39,27 @@ class MoviesFragment : BaseFragment() {
     }
 
     private fun initListener() {
-        fabFilter.setOnClickListener {
-            Toast.makeText(requireContext(), "Fab clicked!", Toast.LENGTH_SHORT).show()
+        tvSortDate.setOnClickListener {
+            hideShowSortingOption()
+            moviesViewModel.getSortedListBasedOnDate()
+        }
+
+        tvSortRating.setOnClickListener {
+            hideShowSortingOption()
+            moviesViewModel.getSortedListBasedOnRating()
+        }
+
+        fabSort.setOnClickListener {
+            with(fabSort) {
+                when (tag) {
+                    getString(R.string.tag_fab_sort) -> {
+                        hideShowSortingOption(false)
+                    }
+                    else -> {
+                        hideShowSortingOption()
+                    }
+                }
+            }
         }
 
         rvMovies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -100,7 +118,27 @@ class MoviesFragment : BaseFragment() {
         })
     }
 
+    private fun hideShowSortingOption(shouldHideSortOption: Boolean = true) {
+        cardSortItem.visibility = when {
+            shouldHideSortOption -> {
+                with(fabSort) {
+                    setImageResource(R.drawable.sort)
+                    tag = getString(R.string.tag_fab_sort)
+                }
+                View.GONE
+            }
+            else -> {
+                with(fabSort) {
+                    setImageResource(R.drawable.close)
+                    tag = getString(R.string.tag_fab_close)
+                }
+                View.VISIBLE
+            }
+        }
+    }
+
     private fun setData(movies: MutableList<Movie>) {
+        fabSort.show()
         moviesAdapter.updateData(movies)
     }
 

@@ -13,9 +13,11 @@ import com.bharatagri.mobile.service.repository.LocalRepository
 import com.bharatagri.mobile.service.repository.RemoteRepository
 import com.bharatagri.mobile.service.utility.NetworkHelper
 import com.bharatagri.mobile.service.utility.Resource
+import com.bharatagri.mobile.utils.Util.getDateFromString
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.util.*
 
 class MoviesViewModel @ViewModelInject constructor(
     @ApplicationContext private val context: Context,
@@ -39,24 +41,51 @@ class MoviesViewModel @ViewModelInject constructor(
 
     fun getMovies() {
         viewModelScope.launch {
-            _moviesMutableLiveData.postValue(Resource.loading(null))
-            if (networkHelper.isNetworkConnected()) {
-                try {
-                    setMoviesData(remoteRepository.getMovies(nextPage))
-                } catch (e: Exception) {
-                    _moviesMutableLiveData.postValue(
-                        Resource.error(context.getString(R.string.something_went_wrong), null)
+            with(_moviesMutableLiveData) {
+                postValue(Resource.loading(null))
+                if (networkHelper.isNetworkConnected()) {
+                    try {
+                        setMoviesData(remoteRepository.getMovies(nextPage))
+                    } catch (e: Exception) {
+                        postValue(
+                            Resource.error(context.getString(R.string.something_went_wrong), null)
+                        )
+                    }
+                } else {
+                    postValue(
+                        Resource.error(context.getString(R.string.no_internet_error), null)
                     )
                 }
-            } else {
-                _moviesMutableLiveData.postValue(
-                    Resource.error(context.getString(R.string.no_internet_error), null)
-                )
-            }
-            _moviesMutableLiveData.addSource(localRepository.fetchMovies()) { movies ->
-                _moviesMutableLiveData.postValue(Resource.success(movies))
+                addSource(localRepository.fetchMovies()) { movies ->
+                    postValue(Resource.success(movies))
+                }
             }
         }
+    }
+
+    fun getSortedListBasedOnDate() {
+        _moviesMutableLiveData.apply {
+            addSource(localRepository.fetchMovies()) { movies ->
+                postValue(Resource.success(movies.sortedByDescending { movie ->
+                    dateTimeStrToLocalDateTime(
+                        movie.releaseDate
+                    )
+                }.toMutableList()))
+            }
+        }
+    }
+
+    fun getSortedListBasedOnRating() {
+        _moviesMutableLiveData.apply {
+            addSource(localRepository.fetchMovies()) { movies ->
+                postValue(Resource.success(movies.sortedByDescending { movie -> movie.voteAverage }
+                    .toMutableList()))
+            }
+        }
+    }
+
+    val dateTimeStrToLocalDateTime: (String) -> Date? = {
+        getDateFromString(it)
     }
 
     private fun setMoviesData(response: Response<MoviesResponse>) {
