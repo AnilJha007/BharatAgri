@@ -13,7 +13,6 @@ import com.bharatagri.mobile.service.repository.RemoteRepository
 import com.bharatagri.mobile.service.utility.NetworkHelper
 import com.bharatagri.mobile.service.utility.Resource
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 

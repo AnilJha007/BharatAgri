@@ -2,7 +2,6 @@ package com.bharatagri.mobile.utils
 
 import androidx.room.TypeConverter
 import com.bharatagri.mobile.service.modal.Genres
-import com.bharatagri.mobile.service.modal.SpokenLanguages
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

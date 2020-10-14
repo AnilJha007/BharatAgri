@@ -16,8 +16,4 @@ class LocalRepository @Inject constructor(private val movieDao: MovieDao) {
     fun fetchMovies() = movieDao.getAllMovies()
 
     fun fetchMovieDetails(movieId: Long) = movieDao.getMovieDetailsById(movieId)
-
-    suspend fun deleteAllMovies() = movieDao.deleteAllMovies()
-
-    suspend fun deleteAllMovieDetails() = movieDao.deleteAllMovieDetails()
 }

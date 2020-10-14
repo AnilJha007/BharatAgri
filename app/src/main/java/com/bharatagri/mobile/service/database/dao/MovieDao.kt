@@ -22,10 +22,4 @@ interface MovieDao {
 
     @Query("SELECT * FROM movie_details where id = :movieId")
     fun getMovieDetailsById(movieId: Long): LiveData<MovieDetails>
-
-    @Query("DELETE FROM movie_list")
-    suspend fun deleteAllMovies()
-
-    @Query("DELETE FROM movie_details")
-    suspend fun deleteAllMovieDetails()
 }
